@@ -1,0 +1,30 @@
+class Navio {
+  private int tamanho;
+  private char orientacao; // 'H' para horizontal, 'V' para vertical
+  private int[] posicao;
+
+   public Navio(int tamanho) {
+      this.tamanho = tamanho;
+      this.posicao = new int[tamanho];
+    }
+
+    public void posicionarNavio(int linha, int coluna, char orientacao) {
+      this.orientacao = orientacao;
+
+      for (int i = 0; i < tamanho; i++) {
+        if (orientacao == 'H') {
+          posicao[i] = coluna + i;
+        } else {
+          posicao[i] = linha + i;
+        }
+      }
+    }
+
+    public int[] getPosicao() {
+      return posicao;
+    }
+
+    public char getOrientacao() {
+      return orientacao;
+    }
+}
