@@ -1,0 +1,158 @@
+import java.util.Random;
+import java.util.Scanner;
+
+
+public class JogadaUsuario {
+  
+  Tabuleiro TabJogador = new Tabuleiro();
+  Tabuleiro TabMaquina = new Tabuleiro();
+  int PartesAfundadas = 0;
+  int PartesAfundadasMaq = 0;
+
+
+    public static void posicionarNavios(int[][]tabuleiro) {
+        Random random = new Random();
+      
+        for (int i = 0; i < 3; i++) {
+            int linha, coluna;
+
+            do {
+               
+                linha = random.nextInt(tabuleiro.length);
+                coluna = random.nextInt(tabuleiro[0].length - 2); // Ajuste para garantir espaço para um navio de tamanho 3
+
+            } while (verificarPosicoesOcupadas(tabuleiro, linha, coluna, 3));
+
+            for (int j = coluna; j < coluna + 3; j++) {
+                tabuleiro[linha][j] = 0; // '0' representa um navio
+            }
+        }
+    }
+
+  
+  public static void posicionarNaviosMaq(int[][]tabuleiroMaq) {
+      Random random = new Random();
+
+      for (int i = 0; i < 3; i++) {
+          int linha, coluna;
+
+          do {
+              linha = random.nextInt(tabuleiroMaq.length);
+              coluna = random.nextInt(tabuleiroMaq[0].length - 2); // Ajuste para garantir espaço para um navio de tamanho 3
+
+          } while (verificarPosicoesOcupadasMaq(tabuleiroMaq, linha, coluna, 3));
+
+          for (int j = coluna; j < coluna + 3; j++) {
+              tabuleiroMaq[linha][j] = 0; // '0' representa um navio
+          }
+      }
+  }
+
+  
+    private static boolean verificarPosicoesOcupadas(int[][] tabuleiro, int linha, int coluna, int tamanho) {
+        for (int j = coluna; j < coluna + tamanho; j++) {
+            if (tabuleiro[linha][j] != -1) {
+                return true; // Alguma posição já está ocupada
+            }
+        }
+        return false; // Todas as posições estão livres
+    }
+
+  
+  private static boolean verificarPosicoesOcupadasMaq(int[][] tabuleiroMaq, int linha, int coluna, int tamanho) {
+      for (int j = coluna; j < coluna + tamanho; j++) {
+          if (tabuleiroMaq[linha][j] != -1) {
+              return true; // Alguma posição já está ocupada
+          }
+      }
+      return false; // Todas as posições estão livres
+  }
+
+  
+    public void jogarContraMaquina(int[][] tabuleiro, int[][] tabuleiroMaq,  Scanner entrada) {
+        int tentativasUsuario = 0;
+        int tentativasMaquina = 0;
+        boolean mostrarNavios = false;
+
+        do{
+            // A Vez do usuario
+            TabJogador.exibirTabuleiro(tabuleiro, mostrarNavios);
+
+            TabMaquina.exibirTabuleiroMaquina(tabuleiroMaq, mostrarNavios);
+          
+            jogadaUsuario(tabuleiroMaq, entrada);
+            tentativasUsuario++;
+
+            // A vez da maquina
+            jogadaMaquina(tabuleiro);
+            tentativasMaquina++;
+
+            
+        }while(PartesAfundadas < 9 || PartesAfundadasMaq <9);{
+
+          if(PartesAfundadas == 9){
+          System.out.println("\nParabéns! Você afundou todos os navios da máquina em " + tentativasUsuario + " tentativas.");
+          }if(PartesAfundadasMaq == 9){
+            System.out.println("\nA máquina afundou todos os seus navios em " + tentativasMaquina + " tentativas.");
+          }
+        }
+        
+    }
+  
+
+    private void jogadaUsuario(int[][] tabuleiroMaq, Scanner entrada) {
+        
+        System.out.print("\nDigite a sua jogada (ex: A1): ");
+        String jogada = entrada.next().toUpperCase();
+
+        if (jogada.length() != 2 || jogada.charAt(0) < 'A' || jogada.charAt(0) > 'G' || jogada.charAt(1) < '1' || jogada.charAt(1) > '7') {
+            System.out.println("\nJogada inválida! Tente novamente.");
+            jogadaUsuario(tabuleiroMaq, entrada);
+            return;
+        }
+
+        int linha = jogada.charAt(0) - 'A';
+        int coluna = Character.getNumericValue(jogada.charAt(1)) - 1;
+
+        if (tabuleiroMaq[linha][coluna] == 0){
+          PartesAfundadas++;
+            System.out.println("\nParabéns! Você acertou um navio!");
+            tabuleiroMaq[linha][coluna] = 2; // '2' representa um navio afundado
+
+        } else if (tabuleiroMaq[linha][coluna] == 2) {
+            System.out.println("\nVocê já acertou esse navio. Tente outra posição.");
+            jogadaUsuario(tabuleiroMaq, entrada);
+        } else {
+             tabuleiroMaq[linha][coluna] = 1;
+            System.out.println("\nÁgua. Tente novamente.");
+        }
+          
+    }
+    private void jogadaMaquina(int[][] tabuleiro) {
+        Random random = new Random();
+        int linha, coluna;
+      
+
+        do {
+            linha = random.nextInt(tabuleiro.length);
+            coluna = random.nextInt(tabuleiro[0].length);
+        } while (tabuleiro[linha][coluna] == 1);
+
+        System.out.println("\nA máquina fez a jogada: " + (char) ('A' + linha) + (coluna + 1));
+
+        if (tabuleiro[linha][coluna] == 0) {
+          PartesAfundadasMaq++;
+            System.out.println("\nA máquina acertou um navio!");
+           System.out.println("\n ACERTOS: " + PartesAfundadasMaq);
+            tabuleiro[linha][coluna] = 2; // '2' representa um navio afundado
+        } else if (tabuleiro[linha][coluna] == 2) {
+          
+        jogadaMaquina(tabuleiro);
+        } else {
+            tabuleiro[linha][coluna] = 1;
+            System.out.println("\nA máquina errou.");
+        }
+        
+    }
+    
+}
