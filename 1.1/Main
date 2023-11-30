@@ -1,0 +1,82 @@
+import java.util.Scanner;
+
+
+//Verificar se o nome da classe está correto. Caso contrário irá dar erro.
+
+public class Main {
+public static void main(String[] args) {
+      Scanner entrada = new Scanner(System.in);
+
+      
+        int linhaTab = 7;
+        int colunaTab = 7;
+        int tamanhoTabuleiro =  49;
+        int QuantidadeBarcos = 3;
+        int TamanhoDoBarco = 3;
+        int pronto=0;
+
+        char [][] tabuleiro = new char[linhaTab][colunaTab];
+
+          String coluna;
+          int linha = 0 ;
+
+  do{
+          System.out.println("Ahoy, capitão destemido! Bem-vindo aos mares caóticos e cheios de perigos de Sete Lagoas. Arregace as mangas, ajuste seu chapéu de pirata e prepare-se para afundar inimigos enquanto risadas maliciosas ecoam pelas sete lagoas. A maré da diversão está prestes a virar a seu favor, então, suba a bordo e mostre quem é o verdadeiro rei (ou rainha) da tão temida Lagoa Paulino! Arrr, que a sorte esteja ao seu lado, capitão intrépido! 🏴‍☠️🌊\n \n");
+
+          System.out.println("Você está pronto?");
+          System.out.println("1 - Sim");
+          System.out.println("2 - Não");
+          pronto = entrada.nextInt();
+
+          if(pronto==1){
+            System.out.println("\nEntão vamos começar a pirataria...\n");
+          }else{
+            System.out.println("\nEntão leia nossa introdução novamente para se inspirar, marinheiro!\n \n");
+          }
+          }while(pronto != 1);
+
+        // TABULEIRO
+  
+  
+  // Aqui define que o tabuleiro será preenchido com o caractere "~"
+  for (int i = 0; i < linhaTab; i++) {
+      for (int j = 0; j < colunaTab; j++) {
+          tabuleiro[i][j] = '~';
+      }
+  }
+
+    //Imprime o cabeçalho das colunas
+   System.out.println("   A B C D E F G");
+   System.out.println("  ______________");
+
+  // Imprimir o conteúdo do tabuleiro com números de linha e coluna
+  for (int i = 0; i < linhaTab; i++) {
+      // Imprime o número das linhas
+      System.out.printf("%d|", i + 1);
+
+      // Imprime os elementos do tabuleiro
+      for (int j = 0; j < colunaTab; j++) {
+          System.out.printf("%2c", tabuleiro[i][j]);
+      }
+
+      // Nova linha para a próxima linha da matriz
+      System.out.println();
+  }
+              
+  
+  
+                do{
+                    System.out.println("\nDigite qual coluna onde deseja colocar o navio: ");
+                    coluna= entrada.next();
+
+                    System.out.println("\nDigite o número da linha  que deseja colocar o navio: ");
+                    linha = entrada.nextInt();
+
+            if(coluna.equalsIgnoreCase("A, B, C, D, E, F, G")  || linha <= 1 || linha >=8  ){
+                        System.out.println("\nJogada Inválida! Jogue novamente.");
+                    }
+        }while (coluna.equalsIgnoreCase("A, B, C, D, E, F, G") || linha <= 1 || linha  >=8  );
+            }
+
+
+}
