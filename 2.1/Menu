@@ -1,0 +1,27 @@
+import java.util.Scanner;
+
+public class Menu {
+
+    public static void exibirMenu() {
+        System.out.println("Ahoy, capitão destemido! Bem-vindo aos mares caóticos de Sete Lagoas. A maré da diversão está prestes a virar a seu favor. Suba a bordo para se tornar o verdadeiro Rei dos Piratas! Que a sorte esteja ao seu lado, capitão intrépido!");
+        System.out.println("1. Iniciar Jogo");
+        System.out.println("2. Sair");
+
+        Scanner scanner = new Scanner(System.in);
+        int escolha = scanner.nextInt();
+
+        switch (escolha) {
+            case 1:
+                // Lógica para iniciar o jogo
+                System.out.println("Iniciando o Jogo...");
+                break;
+            case 2:
+                System.out.println("Saindo do Jogo. Até logo!");
+                System.exit(0);
+                break;
+            default:
+                System.out.println("Escolha inválida. Tente novamente.");
+                exibirMenu();
+        }
+    }
+}
