@@ -1,0 +1,43 @@
+import java.util.*;
+
+public class Main {
+    static Scanner input = new Scanner(System.in);
+
+    public static void main(String[] args) {
+      Menu.exibirMenu();
+      
+        Jogador.obterNomesDosJogadores();
+        Tabuleiro.obterTamanhoDosTabuleiros();
+        Tabuleiro.calcularQuantidadeMaximaDeNaviosNoJogo();
+        Tabuleiro.iniciandoOsTamanhosDosTabuleiros();
+        Tabuleiro.obterQuantidadeDeNaviosNoJogo();
+        Tabuleiro.instanciarContadoresDeNaviosDosJogadores();
+        Tabuleiro.inserirOsNaviosNosTabuleirosDosJogadores();
+
+        Set<String> tirosJogador1 = new HashSet<>();
+        Set<String> tirosJogador2 = new HashSet<>();
+
+        boolean jogoAtivo = true;
+        do {
+            Tabuleiro.exibirTabuleirosDosJogadores();
+            if (Jogador.acaoDoJogador(tirosJogador1)) {
+                if (Tabuleiro.naviosJogador2 <= 0) {
+                    System.out.println(Jogador.nomeJogador1 + " venceu o jogo");
+                    break; // Para sair do looping do jogo
+                }
+                // Verifico fim do jogo
+                Jogador.acaoDoComputador(tirosJogador2);
+                if (Tabuleiro.naviosJogador1 <= 0) {
+                    System.out.println(Jogador.nomeJogador2 + " venceu o jogo");
+                    break;
+                }
+            }
+
+        } while (jogoAtivo);
+
+        Tabuleiro.exibirTabuleirosDosJogadores();
+        input.close();
+    }
+
+
+}
