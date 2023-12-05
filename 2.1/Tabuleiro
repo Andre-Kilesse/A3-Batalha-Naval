@@ -1,0 +1,81 @@
+public class Tabuleiro{
+
+int[][] tabuleiro = new int[7][7];
+int[][] tabuleiroMaq = new int[7][7];
+
+  public void inicializarTabuleiro(int[][] tabuleiro) {
+      for (int i = 0; i < tabuleiro.length; i++) {
+          for (int j = 0; j < tabuleiro[i].length; j++) {
+              tabuleiro[i][j] = -1;
+          }
+      }
+  }
+
+  public void inicializarTabuleiroMaq(int[][] tabuleiroMaq) {
+      for (int i = 0; i < tabuleiro.length; i++) {
+          for (int j = 0; j < tabuleiro[i].length; j++) {
+              tabuleiroMaq[i][j] = -1;
+          }
+      }
+  }
+
+
+  public void exibirTabuleiro(int[][] tabuleiro, boolean mostrarNavios) {
+      System.out.println("\n_______________________________\n");
+      System.out.println("\n   SEU TABULEIRO\n");
+      System.out.println("   1 2 3 4 5 6 7");
+      System.out.println("  ______________");
+
+      for (int i = 0; i < tabuleiro.length; i++) {
+          char letra = (char) ('A' + i);
+          System.out.print(letra + "|");
+
+          for (int j = 0; j < tabuleiro[i].length; j++) {
+              if (tabuleiro[i][j] == -1) {
+                  System.out.print(" " + "~");
+              } else if (tabuleiro[i][j] == 0) {
+                  System.out.print(" " + "Φ");
+              } else if (tabuleiro[i][j] == 1) {
+                  System.out.print(" " + "x");
+              } else if (tabuleiro[i][j] == 2) {
+                  System.out.print(" " + "O");
+              }
+          }
+
+          System.out.println();
+
+
+      }
+
+  }
+
+  public void exibirTabuleiroMaquina(int[][] tabuleiroMaq, boolean mostrarNavios) {
+        System.out.println("\n_______________________________\n");
+        System.out.println("\nTABULEIRO ADVERSÁRIO\n");
+        System.out.println("   1 2 3 4 5 6 7");
+        System.out.println("  ______________");
+
+        for (int i = 0; i < tabuleiroMaq.length; i++) {
+            char letra = (char) ('A' + i);
+            System.out.print(letra + "|");
+
+            for (int j = 0; j < tabuleiroMaq[i].length; j++) {
+                if (tabuleiroMaq[i][j] == -1) {
+                    System.out.print(" " + "~");
+                } else if (tabuleiroMaq[i][j] == 0) {
+                    System.out.print(" " + "i");
+                } else if (tabuleiroMaq[i][j] == 1) {
+                    System.out.print(" " + "x");
+                } else if (tabuleiroMaq[i][j] == 2) {
+                    System.out.print(" " + "O");
+                }
+            }
+
+            System.out.println();
+
+
+        }
+      System.out.println("\n_______________________________\n");
+    }
+
+  }
