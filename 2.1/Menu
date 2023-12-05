@@ -12,7 +12,6 @@ public class Menu {
 
         switch (escolha) {
             case 1:
-                // Lógica para iniciar o jogo
                 System.out.println("Iniciando o Jogo...");
                 break;
             case 2:
