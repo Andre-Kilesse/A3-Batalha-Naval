@@ -89,19 +89,19 @@ public class Jogador {
             if (Tabuleiro.tabuleiroJogador2[posicoes[Tabuleiro.POSICAO_X]][posicoes[Tabuleiro.POSICAO_Y]] == Tabuleiro.NAVIO) {
                 Tabuleiro.tabuleiroJogador2[posicoes[Tabuleiro.POSICAO_X]][posicoes[Tabuleiro.POSICAO_Y]] = Tabuleiro.ACERTOU_TIRO;
                 naviosJogador2--;
-                System.out.println("Você acertou um navio!");
+                System.out.println("");
             } else {
                 Tabuleiro.tabuleiroJogador2[posicoes[Tabuleiro.POSICAO_X]][posicoes[Tabuleiro.POSICAO_Y]] = Tabuleiro.ERROU_TIRO;
-                System.out.println("Você errou o tiro!");
+                System.out.println("");
             }
         } else {
             if (Tabuleiro.tabuleiroJogador1[posicoes[Tabuleiro.POSICAO_X]][posicoes[Tabuleiro.POSICAO_Y]] == Tabuleiro.NAVIO) {
                 Tabuleiro.tabuleiroJogador1[posicoes[Tabuleiro.POSICAO_X]][posicoes[Tabuleiro.POSICAO_Y]] = Tabuleiro.ACERTOU_TIRO;
                 naviosJogador1--;
-                System.out.println("Você acertou um navio!");
+                System.out.println("");
             } else {
                 Tabuleiro.tabuleiroJogador1[posicoes[Tabuleiro.POSICAO_X]][posicoes[Tabuleiro.POSICAO_Y]] = Tabuleiro.ERROU_TIRO;
-                System.out.println("Você errou o tiro!");
+                System.out.println("");
             }
         }
     }
