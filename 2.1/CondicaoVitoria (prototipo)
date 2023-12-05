@@ -1,0 +1,44 @@
+public class CondicaoVitoria {
+
+    String nomeJogador1;
+    String nomeJogador2;
+    int naviosJogador1;
+    int naviosJogador2;
+
+    public CondicaoVitoria(String nomeJogador1, String nomeJogador2, int naviosJogador1, int naviosJogador2) {
+        this.nomeJogador1 = nomeJogador1;
+        this.nomeJogador2 = nomeJogador2;
+        this.naviosJogador1 = naviosJogador1;
+        this.naviosJogador2 = naviosJogador2;
+    }
+
+    public boolean todosOsNaviosAfundados(int[][] tabuleiro) {
+        for (int[] linha : tabuleiro) {
+            for (int coluna : linha) {
+                if (coluna == teste.NAVIO) {
+                    return false; // Ainda tem navio no tabuleiro
+                }
+            }
+        }
+        return true; // Todos os navios foram afundados
+    }
+
+    public boolean verificarEstadoDoJogo() {
+        if (naviosJogador1 == 0) {
+            System.out.println(nomeJogador2 + " venceu! Todos os navios de " + nomeJogador1 + " foram afundados.");
+            return false;
+        } else if (naviosJogador2 == 0) {
+            System.out.println(nomeJogador1 + " venceu! Todos os navios de " + nomeJogador2 + " foram afundados.");
+            return false;
+        }
+        return true; // O jogo continua
+    }
+    public void atualizarEstadoDoJogo(int[][] tabuleiroJogador1, int[][] tabuleiroJogador2) {
+        if (todosOsNaviosAfundados(tabuleiroJogador1)) {
+            naviosJogador1 = 0;
+        }
+        if (todosOsNaviosAfundados(tabuleiroJogador2)) {
+            naviosJogador2 = 0;
+        }
+    }
+}
