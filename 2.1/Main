@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-  public class Main extends JogadaUsuario {
+  public class Main extends Jogada {
 
       public static void main(String[] args) {
           exibirMenuInicial();
@@ -10,8 +10,8 @@ import java.util.Scanner;
           Menu.exibirMenu();
 
           Scanner entrada = new Scanner(System.in);
-          JogadaUsuario jogada = new JogadaUsuario();
-          JogadaUsuario jogada2 = new JogadaUsuario();
+          Jogada jogada = new Jogada();
+          Jogada jogada2 = new Jogada();
           Tabuleiro TabJogador = new Tabuleiro();
           Tabuleiro TabMaquina = new Tabuleiro();
 
