@@ -1,0 +1,122 @@
+import java.util.Random;
+import java.util.Scanner;
+import java.util.Set;
+
+public class Jogador {
+
+    // Variáveis globais
+    static String nomeJogador1, nomeJogador2;
+
+    static Scanner input = new Scanner(System.in);
+    static int naviosJogador1, naviosJogador2;
+
+
+    public static void obterNomesDosJogadores() {
+        System.out.print("Digite o seu nome jogador: ");
+        nomeJogador1 = input.next();
+        System.out.print("\nCAPITÃO " + nomeJogador1 + "! Frota de navios à vista!! Pela bandeira, não os reconheço, senhor. O senhor sabe qual é o nome do seu capitão? ");
+        nomeJogador2 = input.next();
+      System.out.println();
+    }
+
+
+    public static boolean validarPosicoesInseridasPeloJogador(int[] posicoes) {
+        boolean retorno = true;
+        if (posicoes[0] > Tabuleiro.tamanhoX -1) {
+            retorno = false;
+            System.out.println("A posicao das letras não pode ser maior que " + (char)(Tabuleiro.tamanhoX + 64) +";");
+        }
+
+        if (posicoes[1] > Tabuleiro.tamanhoY) {
+            retorno = false;
+            System.out.println("A posicao numérica não pode ser maior que " + Tabuleiro.tamanhoY + ";");
+        }
+
+        return retorno;
+    }
+
+    public static String receberValorDigitadoPeloJogador() {
+        System.out.print("Digite a posição do seu tiro: ");
+        return input.next();
+    }
+
+    public static boolean validarTiroDoJogador(String tiroDoJogador) {
+        int quantidadeDeNumeros = (Tabuleiro.tamanhoY > 10) ? 2 : 1;
+        String expressaoDeVerificacao = "^[A-Za-z]{1}[0-9]{"
+                + quantidadeDeNumeros + "}$";
+        return tiroDoJogador.matches(expressaoDeVerificacao);
+    }
+
+    public static int[] retornarPosicoesDigitadasPeloJogador(String tiroDoJogador) {
+        String tiro = tiroDoJogador.toLowerCase();
+        int[] retorno = new int[2];
+        retorno[Tabuleiro.POSICAO_X] = tiro.charAt(0) - 97;
+        retorno[Tabuleiro.POSICAO_Y] = Integer.parseInt(tiro.substring(1)) - 1;
+        return retorno;
+    }
+    public static boolean acaoDoJogador(Set<String> tirosJogador) {
+        boolean acaoValida = false;
+
+        while (!acaoValida) {
+            String tiroDoJogador = receberValorDigitadoPeloJogador();
+            if (validarTiroDoJogador(tiroDoJogador)) {
+                if (!tirosJogador.contains(tiroDoJogador)) {
+                    tirosJogador.add(tiroDoJogador); // Adiciona a posição ao conjunto de tiros
+                    int[] posicoes = retornarPosicoesDigitadasPeloJogador(tiroDoJogador);
+                    if (validarPosicoesInseridasPeloJogador(posicoes)) {
+                        Tabuleiro.inserirValoresDaAcaoNoTabuleiro(posicoes, 1);
+                        acaoValida = true;
+                    } else {
+                        System.out.println("Posição inválida.");
+                    }
+                } else {
+                    System.out.println("Você já atirou nessa posição. Escolha outra.");
+                }
+            } else {
+                System.out.println("Posição inválida.");
+            }
+        }
+        return acaoValida;
+    }
+
+    public static void acaoDoComputador(Set<String> tirosJogador2) {
+        int[] posicoes = retornarJogadaDoComputador();
+        inserirValoresDaAcaoNoTabuleiro(posicoes, 2);
+    }
+
+    public static void inserirValoresDaAcaoNoTabuleiro(int[] posicoes, int numeroDoJogador) {
+        if (numeroDoJogador == 1) {
+            if (Tabuleiro.tabuleiroJogador2[posicoes[Tabuleiro.POSICAO_X]][posicoes[Tabuleiro.POSICAO_Y]] == Tabuleiro.NAVIO) {
+                Tabuleiro.tabuleiroJogador2[posicoes[Tabuleiro.POSICAO_X]][posicoes[Tabuleiro.POSICAO_Y]] = Tabuleiro.ACERTOU_TIRO;
+                naviosJogador2--;
+                System.out.println("Você acertou um navio!");
+            } else {
+                Tabuleiro.tabuleiroJogador2[posicoes[Tabuleiro.POSICAO_X]][posicoes[Tabuleiro.POSICAO_Y]] = Tabuleiro.ERROU_TIRO;
+                System.out.println("Você errou o tiro!");
+            }
+        } else {
+            if (Tabuleiro.tabuleiroJogador1[posicoes[Tabuleiro.POSICAO_X]][posicoes[Tabuleiro.POSICAO_Y]] == Tabuleiro.NAVIO) {
+                Tabuleiro.tabuleiroJogador1[posicoes[Tabuleiro.POSICAO_X]][posicoes[Tabuleiro.POSICAO_Y]] = Tabuleiro.ACERTOU_TIRO;
+                naviosJogador1--;
+                System.out.println("Você acertou um navio!");
+            } else {
+                Tabuleiro.tabuleiroJogador1[posicoes[Tabuleiro.POSICAO_X]][posicoes[Tabuleiro.POSICAO_Y]] = Tabuleiro.ERROU_TIRO;
+                System.out.println("Você errou o tiro!");
+            }
+        }
+    }
+
+    public static int[] retornarJogadaDoComputador() {
+        int[] posicoes = new int[2];
+        posicoes[Tabuleiro.POSICAO_X] = retornarJogadaAleatoriaDoComputador(Tabuleiro.tamanhoX);
+        posicoes[Tabuleiro.POSICAO_Y] = retornarJogadaAleatoriaDoComputador(Tabuleiro.tamanhoY);
+        return posicoes;
+    }
+
+    public static int retornarJogadaAleatoriaDoComputador(int limite) {
+        Random jogadaDoComputador = new Random();
+        int numeroGerado = jogadaDoComputador.nextInt(limite);
+        return (numeroGerado == limite) ? --numeroGerado : numeroGerado;
+    }
+
+}
